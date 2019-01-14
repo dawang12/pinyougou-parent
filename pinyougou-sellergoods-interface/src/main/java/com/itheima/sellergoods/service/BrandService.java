@@ -1,7 +1,7 @@
 package com.itheima.sellergoods.service;
 
 import com.pinyougou.pojo.TbBrand;
-import entity.PageResult;
+import com.pinyougou.entity.PageResult;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface BrandService {
 
     public List<TbBrand> findAll();
 
-    public PageResult findPage(int page, int size);
+    public PageResult findPage(int pageNum, int pageSize);
 }

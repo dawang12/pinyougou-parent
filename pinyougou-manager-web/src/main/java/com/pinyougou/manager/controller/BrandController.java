@@ -3,7 +3,7 @@ package com.pinyougou.manager.controller;
 import java.util.List;
 
 import com.itheima.sellergoods.service.BrandService;
-import entity.PageResult;
+import com.pinyougou.entity.PageResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +24,7 @@ public class BrandController {
 	}
 
 	@RequestMapping("/findPage")
-	public PageResult findPage(int page, int size){
+	public PageResult findPage(Integer page, Integer size){
 		return brandService.findPage(page, size);
 	}
 
