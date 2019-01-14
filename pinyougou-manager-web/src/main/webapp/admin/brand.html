@@ -24,11 +24,41 @@
 	<script type="text/javascript">
 		
 		var app=angular.module('pinyougou',['pagination']);
-		app.controller('brandController',function($scope,$http){
-			
+		//品牌服务
+        app.service('brandService',function ($http) {
+
+            this.findAll=function () {
+                return $http.get('../brand/findAll.do')
+            };
+
+            this.findPage=function (page,size) {
+              return  $http.get('../brand/findPage.do?page='+page+'&size='+size)
+            };
+
+            this.findOne=function (id) {
+				return $http.get('../brand/findOne.do?id='+id);
+            };
+
+
+            this.dele=function (ids) {
+                return $http.post('../brand/delete.do?ids='+ids)
+            };
+
+            this.add=function (entity) {
+                return  $http.post('../brand/add.do',entity);
+            };
+            this.update=function (entity) {
+                return  $http.post('../brand/update.do',entity)
+            };
+            this.search=function(page,size,searchEntity) {
+                return $http.post('../brand/search.do?page='+page+'&size='+size,searchEntity);
+			}
+        });
+
+		app.controller('brandController',function($scope,$http,brandService){
 			//查询品牌列表
 			$scope.findAll=function(){
-				$http.get('../brand/findAll.do').success(
+				brandService.findAll().success(
 					function(response){
 						$scope.list=response;
 					}		
@@ -37,7 +67,8 @@
 				//重新加载列表 数据
             $scope.reloadList=function(){
                 //切换页码
-                $scope.findPage( $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+				$scope.search($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+                // $scope.findPage( $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
             };
 				//分页控件配置
             $scope.paginationConf = {
@@ -49,16 +80,84 @@
                     $scope.reloadList();//重新加载
                 }
             };
-			//分页
+            //分页
             $scope.findPage=function(page,size){
-                $http.post('../brand/findPage.do?page='+page+'&size='+size).success(
+                brandService.findPage(page,size).success(
                     function(response){
-                        $scope.list=response.size;
+                        $scope.list=response.rows;//后台传过来的数据 跟pojo类里的一样
                         $scope.paginationConf.totalItems=response.total;//更新总记录数
                     }
                 );
-            }
+            };
 
+            //查询实体
+            $scope.findOne=function (id) {
+				brandService.findOne(id).success(
+				    function (response) {
+						$scope.entity=response;
+                    }
+				)
+            };
+            //添加
+            $scope.save=function () {
+
+                var object=null;
+
+                if($scope.entity.id!=null){
+
+                    object=brandService.update($scope.entity)
+				}else {
+                    object=brandService.add($scope.entity)
+				}
+
+                object.success(
+                    function (response) {
+                        if (response.success){
+                            $scope.reloadList()
+						}else {
+                            alert(response.message)
+						}
+                    }
+           		 )
+            };
+
+            $scope.seleteIds=[];
+
+            $scope.updateSelection=function ($event, id) {
+
+                if ($event.target.checked){
+
+					$scope.seleteIds.push(id);
+				}else {
+
+                    var ix = $scope.seleteIds.indexOf(id);
+                    $scope.seleteIds.splice(ix,1);
+				}
+            };
+
+            $scope.dele=function () {
+
+                brandService.dele($scope.seleteIds).success(
+                    function (response) {
+
+                        if (response.success){
+
+                            $scope.reloadList()
+						}
+                    }
+				)
+            };
+
+            $scope.searchEntity={};//定义搜索对象
+
+			$scope.search=function (page, size) {
+				brandService.search(page,size,$scope.searchEntity).success(
+				    function (reponse) {
+						$scope.paginationConf.totalItems=reponse.total;//总记录数
+						$scope.list=reponse.rows;//记录数
+                    }
+				)
+            }
 
 		});
 
@@ -90,7 +189,7 @@
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-							          品牌名称:<input ng-model="searchEntity.name"> 品牌首字母:<input ng-model="searchEntity.firstChar">  
+							          品牌名称:<input ng-model="searchEntity.name"> 品牌首字母:<input ng-model="searchEntity.firstChar">
 							          <button  class="btn btn-default" ng-click="reloadList()">查询</button>                               
                                 </div>
                             </div>
@@ -111,12 +210,12 @@
 			                      </thead>
 								  <tbody>
 								  <tr ng-repeat="entity in list">
-									  <td><input type="checkbox" ></td>
+									  <td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
 									  <td>{{entity.id}}</td>
 									  <td>{{entity.name}}</td>
 									  <td>{{entity.firstChar}}</td>
 									  <td class="text-center">
-										  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  >修改</button>
+										  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(entity.id)" >修改</button>
 									  </td>
 								  </tr>
 								  </tbody>
@@ -126,8 +225,7 @@
 							
                         </div>
                         <!-- 数据表格 /-->
-                        
-                        
+
                         
                         
                      </div>
@@ -145,11 +243,11 @@
 			<table class="table table-bordered table-striped"  width="800px">
 		      	<tr>
 		      		<td>品牌名称</td>
-		      		<td><input  class="form-control" placeholder="品牌名称" ng-model="com.pinyougou.entity.name">  </td>
+		      		<td><input  class="form-control" placeholder="品牌名称" ng-model="entity.name">  </td>
 		      	</tr>		      	
 		      	<tr>
 		      		<td>首字母</td>
-		      		<td><input  class="form-control" placeholder="首字母" ng-model="com.pinyougou.entity.firstChar">  </td>
+		      		<td><input  class="form-control" placeholder="首字母" ng-model="entity.firstChar">  </td>
 		      	</tr>		      	
 			 </table>				
 		</div>
