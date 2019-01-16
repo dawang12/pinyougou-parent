@@ -4,6 +4,7 @@ import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.entity.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 //品牌接口
 public interface BrandService {
@@ -19,4 +20,6 @@ public interface BrandService {
     public TbBrand findOne(Long id);
 
     public void delete(Long[] ids);
+
+    public List<Map> selectOptionList();
 }

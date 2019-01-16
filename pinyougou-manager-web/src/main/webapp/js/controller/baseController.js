@@ -16,17 +16,17 @@ app.controller('baseController',function ($scope) {
             $scope.reloadList();//重新加载
         }
     };
-    $scope.seleteIds=[];
+    $scope.selectIds=[];
 
-    $scope.updateSelection=function ($event, id) {
+    $scope.updateSelection =function ($event, id) {
 
         if ($event.target.checked){
 
-            $scope.seleteIds.push(id);
+            $scope.selectIds.push(id);
         }else {
 
-            var ix = $scope.seleteIds.indexOf(id);
-            $scope.seleteIds.splice(ix,1);
+            var ix = $scope.selectIds.indexOf(id);
+            $scope.selectIds.splice(ix,1);
         }
     };
 });
