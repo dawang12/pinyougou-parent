@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.itheima.sellergoods.service.GoodsService;
 import com.pinyougou.entity.PageResult;
+import com.pinyougou.pojogroup.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
@@ -46,7 +47,7 @@ public class GoodsServiceImpl implements GoodsService {
 	 * 增加
 	 */
 	@Override
-	public void add(TbGoods goods) {
+	public void add(Goods goods) {
 		goodsMapper.insert(goods);		
 	}
 

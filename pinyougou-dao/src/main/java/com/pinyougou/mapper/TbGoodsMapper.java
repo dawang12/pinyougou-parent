@@ -3,6 +3,8 @@ package com.pinyougou.mapper;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojo.TbGoodsExample;
 import java.util.List;
+
+import com.pinyougou.pojogroup.Goods;
 import org.apache.ibatis.annotations.Param;
 
 public interface TbGoodsMapper {
@@ -12,7 +14,7 @@ public interface TbGoodsMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(TbGoods record);
+    int insert(Goods record);
 
     int insertSelective(TbGoods record);
 

@@ -2,6 +2,7 @@ package com.itheima.sellergoods.service;
 import java.util.List;
 
 import com.pinyougou.entity.PageResult;
+import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.pojo.TbSeller;
 
 /**
@@ -58,5 +59,8 @@ public interface SellerService {
 	 * @return
 	 */
 	public PageResult findPage(TbSeller seller, int pageNum, int pageSize);
-	
+
+	public void updateStatus(String sellerId,String status);
+
+
 }
