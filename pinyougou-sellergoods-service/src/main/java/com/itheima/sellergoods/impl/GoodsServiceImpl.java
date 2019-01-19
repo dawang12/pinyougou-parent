@@ -3,12 +3,13 @@ import java.util.List;
 
 import com.itheima.sellergoods.service.GoodsService;
 import com.pinyougou.entity.PageResult;
+import com.pinyougou.mapper.TbGoodsDescMapper;
+import com.pinyougou.mapper.TbGoodsMapper;
 import com.pinyougou.pojogroup.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.pinyougou.mapper.TbGoodsMapper;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojo.TbGoodsExample;
 import com.pinyougou.pojo.TbGoodsExample.Criteria;
@@ -24,7 +25,9 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
 	private TbGoodsMapper goodsMapper;
-	
+
+	@Autowired
+	private TbGoodsDescMapper goodsDescMapper;
 	/**
 	 * 查询全部
 	 */
@@ -48,7 +51,10 @@ public class GoodsServiceImpl implements GoodsService {
 	 */
 	@Override
 	public void add(Goods goods) {
-		goodsMapper.insert(goods);		
+		goods.getGoods().setAuditStatus("0");		//设置未申请状态
+		goodsMapper.insert(goods.getGoods());
+		goods.getGoodsDesc().setGoodsId(goods.getGoods().getId());//设置id
+		goodsDescMapper.insert(goods.getGoodsDesc());
 	}
 
 	

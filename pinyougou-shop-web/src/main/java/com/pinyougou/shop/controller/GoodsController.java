@@ -4,6 +4,8 @@ import java.util.List;
 import com.itheima.sellergoods.service.GoodsService;
 import com.pinyougou.entity.PageResult;
 import com.pinyougou.entity.Result;
+import com.pinyougou.pojogroup.Goods;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +49,12 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbGoods goods){
+	public Result add(@RequestBody Goods goods){
+
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		goods.getGoods().setSellerId(sellerId);
+
 		try {
 			goodsService.add(goods);
 			return new Result(true, "增加成功");
@@ -101,7 +108,7 @@ public class GoodsController {
 	
 		/**
 	 * 查询+分页
-	 * @param brand
+	 * @param
 	 * @param page
 	 * @param rows
 	 * @return

@@ -59,7 +59,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 		goodsService.add( $scope.entity  ).success(
 			function(response){
 				if(response.success){
-					alert("新增成功");
+					alert("保存成功");
 					$scope.entity={};
 					//$scope.entity={goodsDesc:{itemImages:[],specificationItems:[]} };//在图片和规格的时候需要初始化出来itemImages和specificationItems，否则再次操作时会找不到
 					editor.html("");//清空富文本编辑器

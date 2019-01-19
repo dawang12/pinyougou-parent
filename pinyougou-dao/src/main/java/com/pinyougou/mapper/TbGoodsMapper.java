@@ -14,7 +14,7 @@ public interface TbGoodsMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(Goods record);
+    int insert(TbGoods record);
 
     int insertSelective(TbGoods record);
 
