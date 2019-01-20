@@ -97,17 +97,19 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 	
 	//上传图片
 	$scope.uploadFile=function(){
-		alert("111111");
+
 		uploadService.uploadFile().success(
 			function(response){
-				alert(response.success);
+				//alert(response.success);
 				if(response.success){
 					$scope.image_entity.url= response.message;
 				}else{
 					alert(response.message);					
 				}
 			}		
-		);
+		).error(function () {
+            alert("上传发生错误")
+        });
 	}
     
     $scope.entity={ goodsDesc:{itemImages:[],specificationItems:[]}  };

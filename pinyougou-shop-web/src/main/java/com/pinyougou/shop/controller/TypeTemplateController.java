@@ -1,5 +1,6 @@
 package com.pinyougou.shop.controller;
 import java.util.List;
+import java.util.Map;
 
 import com.itheima.sellergoods.service.TypeTemplateService;
 import com.pinyougou.entity.PageResult;
@@ -110,5 +111,9 @@ public class TypeTemplateController {
 	public PageResult search(@RequestBody TbTypeTemplate typeTemplate, int page, int rows  ){
 		return typeTemplateService.findPage(typeTemplate, page, rows);		
 	}
-	
+
+	@RequestMapping("/findSpecList")
+	public List<Map> findSpecList(Long id){
+		return typeTemplateService.findSpecList(id);
+	}
 }
