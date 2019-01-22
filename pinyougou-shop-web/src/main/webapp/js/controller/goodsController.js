@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller,goodsService,uploadService,itemCatService,typeTemplateService){	
+app.controller('goodsController' ,function($scope,$controller,$location,goodsService,uploadService,itemCatService,typeTemplateService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -23,10 +23,26 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 	}
 	
 	//查询实体 
-	$scope.findOne=function(id){				
+	$scope.findOne=function(){
+
+		var id = $location.search()['id'];
+
+		if (id==null){
+
+			return ;
+		}
+
 		goodsService.findOne(id).success(
 			function(response){
-				$scope.entity= response;					
+				$scope.entity= response;
+
+				editor.html($scope.entity.goodsDesc.introduction);
+
+				$scope.entity.goodsDesc.itemImages=JSON.parse($scope.entity.goodsDesc.itemImages);
+
+				$scope.entity.goodsDesc.customAttributeItems=JSON.parse($scope.entity.goodsDesc.customAttributeItems);
+
+				$scope.entity.goodsDesc.specificationItems=JSON.parse($scope.entity.goodsDesc.specificationItems);
 			}
 		);				
 	}
@@ -100,7 +116,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 
 		uploadService.uploadFile().success(
 			function(response){
-				//alert(response.success);
+				alert(response.success);
 				if(response.success){
 					$scope.image_entity.url= response.message;
 				}else{
@@ -169,13 +185,17 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 	$scope.$watch('entity.goods.typeTemplateId',function(newValue,oldValue){
 		//读取品牌列表、规格属性
 		typeTemplateService.findOne(newValue).success(
+
 			function(response){
+
 				$scope.typeTemplate=response;// 模板对象 
 								
 				$scope.typeTemplate.brandIds= JSON.parse($scope.typeTemplate.brandIds);//品牌列表类型转换
-				
-				//扩展属性
-				$scope.entity.goodsDesc.customAttributeItems= JSON.parse($scope.typeTemplate.customAttributeItems);
+				if ($location.search()['id']==null){
+
+                    //扩展属性
+                    $scope.entity.goodsDesc.customAttributeItems= JSON.parse($scope.typeTemplate.customAttributeItems);
+				}
 			}
 		);
 		
@@ -245,4 +265,32 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 		}		
 		return newList;//返回最新的规格列表，可以作为下一次生成的初始集合
 	}
+
+	$scope.status=['未申请','已审核','审核通过','关闭'];//商品状态
+
+	$scope.itemCatList=[];
+
+	$scope.findItemCatList=function () {
+		itemCatService.findAll().success(
+			function (response) {
+				for (var i=0;i<response.length;i++){
+					$scope.itemCatList[response[i].id]=response[i].name;
+				}
+            }
+		)
+    }
+
+    $scope.checkAttributeValue = function (specName, optionName) {
+		var items=$scope.entity.goodsDesc.specificationItems;
+		var object=$scope.searchObjectByKey(items,'attributeName',specName);
+		if (object==null){
+			return false;
+		}else {
+			if (object.attributeValue.indexOf(optionName)>=0){
+				return true;
+			}else {
+				return false;
+			}
+		}
+    }
 });	

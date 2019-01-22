@@ -86,7 +86,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbGoods findOne(Long id){
+	public Goods findOne(Long id){
 		return goodsService.findOne(id);		
 	}
 	
@@ -115,6 +115,13 @@ public class GoodsController {
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
+
+		//获取商家
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		//添加查询条件
+		goods.setSellerId(sellerId);
+
 		return goodsService.findPage(goods, page, rows);		
 	}
 	

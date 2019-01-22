@@ -127,7 +127,7 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         for (Map map : list) {
             //查询规格选项列表
             TbSpecificationOptionExample example = new TbSpecificationOptionExample();
-            com.pinyougou.pojo.TbSpecificationOptionExample.Criteria criteria = example.createCriteria();
+            TbSpecificationOptionExample.Criteria criteria = example.createCriteria();
             criteria.andSpecIdEqualTo(new Long((Integer) map.get("id")));
             List<TbSpecificationOption> options = specificationOptionMapper.selectByExample(example);
             map.put("options", options);
