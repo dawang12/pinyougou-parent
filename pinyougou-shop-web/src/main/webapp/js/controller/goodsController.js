@@ -43,14 +43,25 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 				$scope.entity.goodsDesc.customAttributeItems=JSON.parse($scope.entity.goodsDesc.customAttributeItems);
 
 				$scope.entity.goodsDesc.specificationItems=JSON.parse($scope.entity.goodsDesc.specificationItems);
+
+				for (var i = 0;i<$scope.entity.itemList.length;i++){
+
+					$scope.entity.itemList[i].spec=JSON.parse($scope.entity.itemList[i].spec)
+				}
 			}
 		);				
 	}
 	
 	//保存 
-	$scope.save=function(){				
-		var serviceObject;//服务层对象  				
-		if($scope.entity.id!=null){//如果有ID
+	$scope.save=function(){
+
+		//提取文件编辑器的值
+		$scope.entity.goodsDesc.introduction=editor.html();
+
+		var serviceObject;//服务层对象
+
+		if($scope.entity.goods.id!=null){//如果有ID
+
 			serviceObject=goodsService.update( $scope.entity ); //修改  
 		}else{
 			serviceObject=goodsService.add( $scope.entity  );//增加 
@@ -58,8 +69,9 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 		serviceObject.success(
 			function(response){
 				if(response.success){
-					//重新查询 
-		        	$scope.reloadList();//重新加载
+					location.href="goods.html";
+					//跳转到商品列表页
+
 				}else{
 					alert(response.message);
 				}
@@ -79,6 +91,7 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 					$scope.entity={};
 					//$scope.entity={goodsDesc:{itemImages:[],specificationItems:[]} };//在图片和规格的时候需要初始化出来itemImages和specificationItems，否则再次操作时会找不到
 					editor.html("");//清空富文本编辑器
+					location.href=goods.html();
 				}else{
 					alert(response.message);
 				}
@@ -116,7 +129,7 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 
 		uploadService.uploadFile().success(
 			function(response){
-				alert(response.success);
+				//alert(response.success);
 				if(response.success){
 					$scope.image_entity.url= response.message;
 				}else{
@@ -131,12 +144,12 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
     $scope.entity={ goodsDesc:{itemImages:[],specificationItems:[]}  };
 	
 	//将当前上传的图片实体存入图片列表
-	$scope.add_image_entity=function(){
+	$scope.addImageEntity=function(){
 		$scope.entity.goodsDesc.itemImages.push($scope.image_entity);			
 	}
 	
 	//移除图片
-	$scope.remove_image_entity=function(index){
+	$scope.removeImageEntity=function(index){
 		$scope.entity.goodsDesc.itemImages.splice(index,1);
 	}
 	
@@ -292,5 +305,20 @@ app.controller('goodsController' ,function($scope,$controller,$location,goodsSer
 				return false;
 			}
 		}
+    }
+
+    $scope.updateStatus=function (status) {
+		goodsService.updateStatus(status).success(
+
+			function (response) {
+
+				if (response.success()){
+                    $scope.reloadList();
+                    $scope.selectIds=[];
+				}else {
+					alert(response.message);
+				}
+            }
+		);
     }
 });	

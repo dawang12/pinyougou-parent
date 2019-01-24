@@ -2,7 +2,7 @@ package com.pinyougou.pojo;
 
 import java.io.Serializable;
 
-public class TbAreas implements Serializable{
+public class TbAreas  implements Serializable {
     private Integer id;
 
     private String areaid;

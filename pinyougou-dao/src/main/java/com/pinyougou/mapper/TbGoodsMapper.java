@@ -29,4 +29,6 @@ public interface TbGoodsMapper {
     int updateByPrimaryKeySelective(TbGoods record);
 
     int updateByPrimaryKey(TbGoods record);
+
+    void add(Goods goods);
 }
