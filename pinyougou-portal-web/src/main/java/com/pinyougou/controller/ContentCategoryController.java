@@ -1,4 +1,4 @@
-package com.piniyougou.controller;
+package com.pinyougou.controller;
 import java.util.List;
 
 import com.pinyougou.entity.PageResult;

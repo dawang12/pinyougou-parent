@@ -16,26 +16,26 @@ public interface ContentService {
 	 * @return
 	 */
 	public List<TbContent> findAll();
-	
-	
+
+
 	/**
 	 * 返回分页列表
 	 * @return
 	 */
 	public PageResult findPage(int pageNum, int pageSize);
-	
-	
+
+
 	/**
 	 * 增加
 	*/
 	public void add(TbContent content);
-	
-	
+
+
 	/**
 	 * 修改
 	 */
 	public void update(TbContent content);
-	
+
 
 	/**
 	 * 根据ID获取实体
@@ -43,8 +43,8 @@ public interface ContentService {
 	 * @return
 	 */
 	public TbContent findOne(Long id);
-	
-	
+
+
 	/**
 	 * 批量删除
 	 * @param ids
@@ -58,5 +58,6 @@ public interface ContentService {
 	 * @return
 	 */
 	public PageResult findPage(TbContent content, int pageNum, int pageSize);
-	
+
+	public List<TbContent> findByCategoryId(Long categoryId);
 }
