@@ -1,50 +1,50 @@
-package com.pinyougou.service;
+package com.pinyougou.search.service;
 import java.util.List;
 
 import com.pinyougou.entity.PageResult;
-import com.pinyougou.pojo.TbContent;
+import com.pinyougou.pojo.TbContentCategory;
 
 /**
  * 服务层接口
  * @author Administrator
  *
  */
-public interface ContentService {
+public interface ContentCategoryService {
 
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<TbContent> findAll();
-
-
+	public List<TbContentCategory> findAll();
+	
+	
 	/**
 	 * 返回分页列表
 	 * @return
 	 */
 	public PageResult findPage(int pageNum, int pageSize);
-
-
+	
+	
 	/**
 	 * 增加
 	*/
-	public void add(TbContent content);
-
-
+	public void add(TbContentCategory contentCategory);
+	
+	
 	/**
 	 * 修改
 	 */
-	public void update(TbContent content);
-
+	public void update(TbContentCategory contentCategory);
+	
 
 	/**
 	 * 根据ID获取实体
 	 * @param id
 	 * @return
 	 */
-	public TbContent findOne(Long id);
-
-
+	public TbContentCategory findOne(Long id);
+	
+	
 	/**
 	 * 批量删除
 	 * @param ids
@@ -57,7 +57,6 @@ public interface ContentService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TbContent content, int pageNum, int pageSize);
-
-	public List<TbContent> findByCategoryId(Long categoryId);
+	public PageResult findPage(TbContentCategory contentCategory, int pageNum, int pageSize);
+	
 }

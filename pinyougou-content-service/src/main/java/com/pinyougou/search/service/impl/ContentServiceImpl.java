@@ -1,4 +1,4 @@
-package com.pinyougou.service.impl;
+package com.pinyougou.search.service.impl;
 import java.util.List;
 
 import com.pinyougou.entity.PageResult;
@@ -10,7 +10,7 @@ import com.pinyougou.mapper.TbContentMapper;
 import com.pinyougou.pojo.TbContent;
 import com.pinyougou.pojo.TbContentExample;
 import com.pinyougou.pojo.TbContentExample.Criteria;
-import com.pinyougou.service.ContentService;
+import com.pinyougou.search.service.ContentService;
 import org.springframework.data.redis.core.RedisTemplate;
 
 
@@ -131,6 +131,7 @@ public class ContentServiceImpl implements ContentService {
 		 List<TbContent> contentList = (List<TbContent>) redisTemplate.boundHashOps("content").get(categoryId);
 		 if (contentList==null){
 			 //根据广告分类ID查询广告列表
+			 System.out.println("从数据库中查询数据");
 			 TbContentExample contentExample=new TbContentExample();
 			 Criteria criteria = contentExample.createCriteria();
 			 criteria.andCategoryIdEqualTo(categoryId);
@@ -139,6 +140,8 @@ public class ContentServiceImpl implements ContentService {
 			 contentList = contentMapper.selectByExample(contentExample);
 
 			 redisTemplate.boundHashOps("content").put(categoryId,contentList);
+		 }else {
+			 System.out.println("从缓存中查询数据");
 		 }
 
 		return  contentList;

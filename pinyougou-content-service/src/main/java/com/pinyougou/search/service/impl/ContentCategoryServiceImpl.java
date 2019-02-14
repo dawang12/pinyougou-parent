@@ -1,4 +1,4 @@
-package com.pinyougou.service.impl;
+package com.pinyougou.search.service.impl;
 import java.util.List;
 
 import com.pinyougou.entity.PageResult;
@@ -10,7 +10,7 @@ import com.pinyougou.mapper.TbContentCategoryMapper;
 import com.pinyougou.pojo.TbContentCategory;
 import com.pinyougou.pojo.TbContentCategoryExample;
 import com.pinyougou.pojo.TbContentCategoryExample.Criteria;
-import com.pinyougou.service.ContentCategoryService;
+import com.pinyougou.search.service.ContentCategoryService;
 
 
 /**
