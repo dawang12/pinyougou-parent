@@ -1,7 +1,7 @@
 package com.pinyougou.search.controller;
 import java.util.List;
 
-import com.pinyougou.search.service.ContentService;
+import com.pinyougou.content.service.ContentService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;

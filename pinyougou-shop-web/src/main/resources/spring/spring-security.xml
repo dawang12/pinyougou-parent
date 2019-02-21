@@ -53,7 +53,7 @@
 	</authentication-manager>
 
 
-	<beans:bean id="userDetailService" class="com.pinyougou.search.service.UserDetailsServiceImpl">
+	<beans:bean id="userDetailService" class="com.pinyougou.content.service.UserDetailsServiceImpl">
 		<beans:property name="sellerService" ref="sellerService"></beans:property>
 	</beans:bean>
 

@@ -22,7 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("经过了UserDetailsServiceImpl");
         //构建角色列表
         List<GrantedAuthority> grantAuths = new ArrayList();
         grantAuths.add(new SimpleGrantedAuthority("ROLE_SELLER"));

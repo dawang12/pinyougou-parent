@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/pinyougou-cart-service" />
+    <file type="web" url="file://$PROJECT_DIR$/pinyougou-cart-web" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-content-service" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-manager-web" />
+    <file type="web" url="file://$PROJECT_DIR$/pinyougou-page-service" />
+    <file type="web" url="file://$PROJECT_DIR$/pinyougou-page-web" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-portal-web" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-search-service" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-search-web" />
@@ -13,6 +17,11 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../freemarker-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/../springboot-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/../jmsDemo/pom.xml" />
+        <option value="$PROJECT_DIR$/../springjms_producer/pom.xml" />
+        <option value="$PROJECT_DIR$/../springjms_consumer/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

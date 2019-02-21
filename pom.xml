@@ -22,6 +22,12 @@
         <module>pinyougou-search-interface</module>
         <module>pinyougou-search-service</module>
         <module>pinyougou-search-web</module>
+        <module>pinyougou-page-interface</module>
+        <module>pinyougou-page-service</module>
+        <module>pinyougou-page-web</module>
+        <module>pinyougou-cart-interface</module>
+        <module>pinyougou-cart-service</module>
+        <module>pinyougou-cart-web</module>
     </modules>
     <packaging>pom</packaging>
     <!-- 集中定义依赖版本号 -->

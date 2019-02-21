@@ -9,9 +9,9 @@ app.controller('searchController',function($scope,$location,searchService){
 		searchService.search($scope.searchMap).success(
 			function(response){
 				$scope.resultMap=response;		
-				//$scope.searchMap.pageNo=1;//查询后显示第一页
-				buildPageLabel();//构建分页栏			
 				
+				buildPageLabel();//构建分页栏			
+				//$scope.searchMap.pageNo=1;//查询后显示第一页
 			}
 		);		
 	}
@@ -119,8 +119,8 @@ app.controller('searchController',function($scope,$location,searchService){
 	
 	//加载关键字
 	$scope.loadkeywords=function(){
-        $scope.searchMap.keywords=  $location.search()['keywords'];
-        $scope.search();
+		$scope.searchMap.keywords= $location.search()['keywords'];
+		$scope.search();//查询
 	}
 	
 });
