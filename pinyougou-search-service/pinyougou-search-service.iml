@@ -24,6 +24,14 @@
           <file>jar://D:/download/repository/io/netty/netty/3.7.0.Final/netty-3.7.0.Final.jar!/org/jboss/netty/container/spring/beans.xml</file>
           <file>file://D:/download/repository/io/netty/netty/3.7.0.Final/netty-3.7.0.Final.jar</file>
         </fileset>
+        <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
+          <file>file://$MODULE_DIR$/../pinyougou-common/src/main/resources/spring/applicationContext-redis.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-jms-consumer-queue.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-service.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring/applicationContext-solr.xml</file>
+          <file>jar://D:/download/repository/io/netty/netty/3.7.0.Final/netty-3.7.0.Final.jar!/org/jboss/netty/container/spring/beans.xml</file>
+          <file>file://D:/download/repository/io/netty/netty/3.7.0.Final/netty-3.7.0.Final.jar</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
